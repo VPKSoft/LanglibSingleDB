@@ -71,7 +71,7 @@ namespace VPKSoft.LangLib
         {
             foreach (string arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToUpper().StartsWith("--localize="))
+                if (arg.StartsWith("--localize="))
                 {
                     try
                     {
