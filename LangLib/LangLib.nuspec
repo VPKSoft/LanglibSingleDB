@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://www.gnu.org/licenses/lgpl.txt</licenseUrl>
+    <projectUrl>https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</projectUrl>
+    <iconUrl>https://www.vpksoft.net/site/VPKSoft.ico</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Added possibility to launch the DBLocalization application directly from the host application.</releaseNotes>
+    <copyright>Copyright © VPKSoft 2018</copyright>
+    <tags>LangLib VPKSoft Localization</tags>
+  </metadata>
+  <files>
+    <!-- Add files from an arbitrary folder that's not necessarily in the project -->
+    <file src="..\DBLocalization\bin\Release\DBLocalization.exe" target="content" />
+  </files>
+</package>
