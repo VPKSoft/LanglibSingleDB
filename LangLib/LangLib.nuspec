@@ -11,7 +11,7 @@
     <iconUrl>https://www.vpksoft.net/site/VPKSoft.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fixed invalid string comparison with the command line arguments.</releaseNotes>
+    <releaseNotes>Fixed apostrophes with the command line arguments.</releaseNotes>
     <copyright>Copyright © VPKSoft 2018</copyright>
     <tags>LangLib VPKSoft Localization</tags>
   </metadata>

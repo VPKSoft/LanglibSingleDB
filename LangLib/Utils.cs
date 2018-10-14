@@ -119,7 +119,7 @@ namespace VPKSoft.LangLib
                 {
                     // create a process..
                     Process process = new Process();
-                    process.StartInfo = new ProcessStartInfo(dbLocalizationExecutable, dbLocalizationDatabase);
+                    process.StartInfo = new ProcessStartInfo(dbLocalizationExecutable, "\"" + dbLocalizationDatabase + "\"");
                     return process; // ..and return it..
                 }
                 else
