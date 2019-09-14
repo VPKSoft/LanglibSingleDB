@@ -10,7 +10,7 @@
     <iconUrl>https://www.vpksoft.net/site/VPKSoft.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fixed the NuGet dependency for the DBLocalization software.</releaseNotes>
+    <releaseNotes>Added null checks to the object access via reflection (exceptions slows down the enumeration). Refactored with ReSharper.</releaseNotes>
     <copyright>Copyright © VPKSoft 2019</copyright>
     <tags>LangLib VPKSoft Localization</tags>
     <license type="expression">LGPL-3.0-or-later</license>

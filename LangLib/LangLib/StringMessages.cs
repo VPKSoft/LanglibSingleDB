@@ -24,12 +24,6 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace VPKSoft.LangLib
 {
     /// <summary>
@@ -38,36 +32,14 @@ namespace VPKSoft.LangLib
     public class StringMessages
     {
         /// <summary>
-        /// The name of the message.
-        /// </summary>
-        private string messageName;
-
-        /// <summary>
-        /// The message itself.
-        /// </summary>
-        private string message;
-
-        /// <summary>
         /// Gets the message.
         /// </summary>
-        public string Message
-        {
-            get
-            {
-                return message;
-            }
-        }
+        public string Message { get; }
 
         /// <summary>
         /// Gets the name of the message.
         /// </summary>
-        public string MessageName
-        {
-            get
-            {
-                return messageName;
-            }
-        }
+        public string MessageName { get; }
 
         /// <summary>
         /// StringMessages class constructor.
@@ -76,8 +48,8 @@ namespace VPKSoft.LangLib
         /// <param name="message">The message itself.</param>
         public StringMessages(string messageName, string message)
         {
-            this.message = message;
-            this.messageName = messageName;
+            Message = message;
+            MessageName = messageName;
         }
     }
 }

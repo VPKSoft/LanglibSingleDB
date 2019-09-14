@@ -25,9 +25,10 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Globalization;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+// ReSharper disable CommentTypo
 
 namespace VPKSoft.LangLib
 {
@@ -104,6 +105,7 @@ namespace VPKSoft.LangLib
         /// </summary>
         /// <param name="applicationPath">The path where the application is located.</param>
         /// <returns>A Process class instance if a process can be created with the "--localize=file.sqlite" command line argument and the given <paramref name="applicationPath"/>; otherwise null.</returns>
+        // ReSharper disable once InconsistentNaming
         public static Process CreateDBLocalizeProcess(string applicationPath)
         {
             try
@@ -118,8 +120,11 @@ namespace VPKSoft.LangLib
                 if (File.Exists(dbLocalizationExecutable) && File.Exists(dbLocalizationDatabase))
                 {
                     // create a process..
-                    Process process = new Process();
-                    process.StartInfo = new ProcessStartInfo(dbLocalizationExecutable, "\"" + dbLocalizationDatabase + "\"");
+                    Process process = new Process
+                    {
+                        StartInfo = new ProcessStartInfo(dbLocalizationExecutable,
+                            "\"" + dbLocalizationDatabase + "\"")
+                    };
                     return process; // ..and return it..
                 }
                 else

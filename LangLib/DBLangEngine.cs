@@ -85,7 +85,7 @@ namespace VPKSoft.LangLib
             base(form)
         {
             this.appType = appType;
-            thisForm = form;
+            ThisForm = form;
             // int the data directory with default
             dataDir = GetAppSettingsFolder(appType);
         }
@@ -106,7 +106,7 @@ namespace VPKSoft.LangLib
         {
             this.appType = appType;
             this.useUids = useUids;
-            thisWindow = window;
+            ThisWindow = window;
             // int the data directory with default
             dataDir = GetAppSettingsFolder(appType);
         }        
@@ -662,9 +662,9 @@ namespace VPKSoft.LangLib
                                                         "SELECT VALUE, 1 AS SORT FROM MESSAGES " +
                                                         "WHERE CULTURE = {2} AND MESSAGENAME = {1} " +
                                                         "ORDER BY SORT ",
-                                                        DBUtils.MkStr(GetUseCulture(ci).Name),
-                                                        DBUtils.MkStr(name),
-                                                        DBUtils.MkStr(FallBackCulture.Name));
+                                                        DbUtils.MkStr(GetUseCulture(ci).Name),
+                                                        DbUtils.MkStr(name),
+                                                        DbUtils.MkStr(FallBackCulture.Name));
                     using (SQLiteDataReader dr = command.ExecuteReader())
                     {
                         if (dr.Read())
@@ -789,9 +789,9 @@ namespace VPKSoft.LangLib
                                                     "SELECT VALUE, 1 AS SORT FROM MESSAGES " +
                                                     "WHERE CULTURE = {2} AND MESSAGENAME = {1} " +
                                                     "ORDER BY SORT ",
-                                                    DBUtils.MkStr(GetUseCulture(ci).Name),
-                                                    DBUtils.MkStr(name),
-                                                    DBUtils.MkStr(FallBackCulture.Name));
+                                                    DbUtils.MkStr(GetUseCulture(ci).Name),
+                                                    DbUtils.MkStr(name),
+                                                    DbUtils.MkStr(FallBackCulture.Name));
                 using (SQLiteDataReader dr = command.ExecuteReader())
                 {
                     if (dr.Read())
@@ -885,12 +885,12 @@ namespace VPKSoft.LangLib
                                            "CULTURE = {2} AND PROPERTYNAME = {3}); " +
                                            "UPDATE FORMITEMS SET INUSE = 1 WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                            "PROPERTYNAME = {3}; ",
-                                           DBUtils.MkStr(app_form),
-                                           DBUtils.MkStr(item),
-                                           DBUtils.MkStr(ci.Name),
-                                           DBUtils.MkStr(propertyName),
-                                           DBUtils.MkStr(valueType),
-                                           DBUtils.MkStr(value));
+                                           DbUtils.MkStr(app_form),
+                                           DbUtils.MkStr(item),
+                                           DbUtils.MkStr(ci.Name),
+                                           DbUtils.MkStr(propertyName),
+                                           DbUtils.MkStr(valueType),
+                                           DbUtils.MkStr(value));
             }
             else
             {
@@ -902,12 +902,12 @@ namespace VPKSoft.LangLib
                                                         "CULTURE = {2} AND PROPERTYNAME = {3}); " +
                                                         "UPDATE FORMITEMS SET INUSE = 1 WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                                         "PROPERTYNAME = {3}; ",
-                                                        DBUtils.MkStr(app_form),
-                                                        DBUtils.MkStr(item),
-                                                        DBUtils.MkStr(ci.Name),
-                                                        DBUtils.MkStr(propertyName),
-                                                        DBUtils.MkStr(valueType),
-                                                        DBUtils.MkStr(value));
+                                                        DbUtils.MkStr(app_form),
+                                                        DbUtils.MkStr(item),
+                                                        DbUtils.MkStr(ci.Name),
+                                                        DbUtils.MkStr(propertyName),
+                                                        DbUtils.MkStr(valueType),
+                                                        DbUtils.MkStr(value));
                     command.ExecuteNonQuery();
                 }
             }
@@ -978,7 +978,7 @@ namespace VPKSoft.LangLib
             }
 
             string sql = string.Empty;
-            sql += "UPDATE MESSAGES SET INUSE = 0 WHERE CULTURE = " + DBUtils.MkStr(FallBackCulture.Name) + "; ";
+            sql += "UPDATE MESSAGES SET INUSE = 0 WHERE CULTURE = " + DbUtils.MkStr(FallBackCulture.Name) + "; ";
 
             assembly = Assembly.GetEntryAssembly();
 
@@ -992,10 +992,10 @@ namespace VPKSoft.LangLib
                                      "SELECT {0}, {1}, {2}, {3} " +
                                      "WHERE NOT EXISTS(SELECT 1 FROM MESSAGES WHERE CULTURE = {0} AND MESSAGENAME = {1}); " +
                                      "UPDATE MESSAGES SET INUSE = 1 WHERE MESSAGENAME = {1}; ",
-                                     DBUtils.MkStr(FallBackCulture.Name),
-                                     DBUtils.MkStr(i.Key.ToString()),
-                                     DBUtils.MkStr(value),
-                                     DBUtils.MkStr(comment));
+                                     DbUtils.MkStr(FallBackCulture.Name),
+                                     DbUtils.MkStr(i.Key.ToString()),
+                                     DbUtils.MkStr(value),
+                                     DbUtils.MkStr(comment));
             }
 
             using (SQLiteTransaction trans = conn.BeginTransaction())
@@ -1160,9 +1160,9 @@ namespace VPKSoft.LangLib
                                                     "FROM FORMITEMS " +
                                                     "WHERE APP_FORM = {0} AND CULTURE = {2} " +
                                                     "ORDER BY SORT ",
-                                                    DBUtils.MkStr(app_form),
-                                                    DBUtils.MkStr(GetUseCulture(ci).Name),
-                                                    DBUtils.MkStr(FallBackCulture.Name));
+                                                    DbUtils.MkStr(app_form),
+                                                    DbUtils.MkStr(GetUseCulture(ci).Name),
+                                                    DbUtils.MkStr(FallBackCulture.Name));
                 using (SQLiteDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
@@ -1225,9 +1225,9 @@ namespace VPKSoft.LangLib
                                                     "FROM FORMITEMS " +
                                                     "WHERE APP_FORM = {0} AND CULTURE = {2} " +
                                                     "ORDER BY SORT ",
-                                                    DBUtils.MkStr(app_form),
-                                                    DBUtils.MkStr(GetUseCulture(ci).Name),
-                                                    DBUtils.MkStr(FallBackCulture.Name));
+                                                    DbUtils.MkStr(app_form),
+                                                    DbUtils.MkStr(GetUseCulture(ci).Name),
+                                                    DbUtils.MkStr(FallBackCulture.Name));
                 using (SQLiteDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())

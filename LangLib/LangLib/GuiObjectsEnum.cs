@@ -25,18 +25,12 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
 using System.Collections;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
 using System.Windows;
-using System.ComponentModel;
-using System.Security.Cryptography;
-
 
 namespace VPKSoft.LangLib
 {
@@ -49,30 +43,30 @@ namespace VPKSoft.LangLib
         /// <summary>
         /// Internal list for the GuiObject class instances.
         /// </summary>
-        private List<GuiObject> wfObjects = new List<GuiObject>();
+        private readonly List<GuiObject> wfObjects = new List<GuiObject>();
 
         /// <summary>
         /// Internal list of name spaces to use to
         /// <para/>separate which object to enumerate.
         /// </summary>
-        private List<string> nameSpaces = new List<string>();
+        private readonly List<string> nameSpaces = new List<string>();
 
         /// <summary>
         /// A list of denied objects which should not be enumerated.
         /// </summary>
-        public List<string> DeniedObjectNames = new List<string>(new string[] {"Name", "ImageKey", "WindowText", "Uid", "SelectedText"});
+        public List<string> DeniedObjectNames = new List<string>(new[] {"Name", "ImageKey", "WindowText", "Uid", "SelectedText"});
 
         /// <summary>
         /// A place holder for a System.Windows.Forms.Form
         /// <para/>class instance.
         /// </summary>
-        protected System.Windows.Forms.Form thisForm = null;
+        protected System.Windows.Forms.Form ThisForm;
 
         /// <summary>
         /// A place holder for a System.Windows.Window
         /// <para/>class instance.
         /// </summary>
-        protected System.Windows.Window thisWindow = null;
+        protected Window ThisWindow;
 
 
         /// <summary>
@@ -83,24 +77,29 @@ namespace VPKSoft.LangLib
         public GuiObjectsEnum(System.Windows.Forms.Form form)
         {
             InitNameSpaces();
-            thisForm = form;
+            ThisForm = form;
         }
 
+        // ReSharper disable once CommentTypo
         /// <summary>
         /// Whether to use x:Uid's to reference to a FrameworkElement class instance.
         /// </summary>
-        private bool useUids = true;
+        // ReSharper disable once IdentifierTypo
+        private readonly bool useUids = true;
 
+        // ReSharper disable once CommentTypo
         /// <summary>
         /// The class constructor based on a 
         /// <para/>System.Windows.Window class instance.
         /// </summary>
         /// <param name="window">An instance of System.Windows.Window class.</param>
         /// <param name="useUids">Whether to use x:Uid's to reference to a FrameworkElement class instance.</param>
-        public GuiObjectsEnum(System.Windows.Window window, bool useUids = true)
+        // ReSharper disable once IdentifierTypo
+        public GuiObjectsEnum(Window window, bool useUids = true)
         {
             InitNameSpaces();
-            thisWindow = window;
+            this.useUids = useUids;
+            ThisWindow = window;
         }
 
         /// <summary>
@@ -137,22 +136,22 @@ namespace VPKSoft.LangLib
         {
             get
             {
-                if (thisWindow != null)
+                if (ThisWindow != null)
                 {
-                    if (thisWindow.Name == string.Empty && thisWindow.Uid == string.Empty) // Added x:Uid support
+                    if (ThisWindow.Name == string.Empty && ThisWindow.Uid == string.Empty) // Added x:Uid support
                     {
                         throw new NamelessWindowException();
                     }
 
-                    return thisWindow.Uid == string.Empty ? thisWindow.Name : thisWindow.Uid;
+                    return ThisWindow.Uid == string.Empty ? ThisWindow.Name : ThisWindow.Uid;
                 }
-                else if (thisForm != null)
+                else if (ThisForm != null)
                 {
-                    if (thisForm.Name == string.Empty)
+                    if (ThisForm.Name == string.Empty)
                     {
                         throw new NamelessWindowException();
                     }
-                    return thisForm.Name;
+                    return ThisForm.Name;
                 }
                 else
                 {
@@ -169,11 +168,11 @@ namespace VPKSoft.LangLib
         {
             get
             {
-                if (thisWindow != null)
+                if (ThisWindow != null)
                 {                    
                     return  (LicenseManager.UsageMode == LicenseUsageMode.Designtime);
                 }
-                else if (thisForm != null)
+                else if (ThisForm != null)
                 {
                     return (LicenseManager.UsageMode == LicenseUsageMode.Designtime);
                 }
@@ -188,13 +187,7 @@ namespace VPKSoft.LangLib
         /// Gets the type of the window / form this
         /// <para/>class instance was initialized with.
         /// </summary>
-        public Type BaseInstanceType
-        {
-            get
-            {
-                return BaseInstance.GetType();
-            }
-        }
+        public Type BaseInstanceType => BaseInstance.GetType();
 
         /// <summary>
         /// Adds a new GuiObject class instance to the internal list.
@@ -213,18 +206,12 @@ namespace VPKSoft.LangLib
         {
             get
             {
-                if (thisWindow != null)
+                if (ThisWindow != null)
                 {
-                    return thisWindow;
+                    return ThisWindow;
                 }
-                else if (thisForm != null)
-                {
-                    return thisForm;
-                }
-                else
-                {
-                    return null;
-                }
+
+                return ThisForm;
             }
         }
 
@@ -235,11 +222,11 @@ namespace VPKSoft.LangLib
         {
             get
             {
-                if (thisWindow != null)
+                if (ThisWindow != null)
                 {
-                    return System.Windows.Application.ResourceAssembly.GetName().Name;
+                    return Application.ResourceAssembly.GetName().Name;
                 }
-                else if (thisForm != null)
+                else if (ThisForm != null)
                 {
                     return System.Windows.Forms.Application.ProductName;
                 }
@@ -255,13 +242,7 @@ namespace VPKSoft.LangLib
         /// <para/>with the window / form name this
         /// <para/>class instance was initialized with (e.g. "TestApp.Form1").
         /// </summary>
-        public string AppForm
-        {
-            get
-            {
-                return BaseInstanceProduct + "." + BaseInstanceName;
-            }
-        }
+        public string AppForm => BaseInstanceProduct + "." + BaseInstanceName;
 
         /// <summary>
         /// Clears the object cache if the <paramref name="clear"/> is
@@ -297,13 +278,7 @@ namespace VPKSoft.LangLib
         /// Returns the list of allowed name spaces for
         /// <para/>object enumeration.
         /// </summary>
-        public List<string> NameSpaces
-        {
-            get
-            {
-                return nameSpaces;
-            }
-        }
+        public List<string> NameSpaces => nameSpaces;
 
         /// <summary>
         /// Clears the list of allowed name spaces for
@@ -342,9 +317,8 @@ namespace VPKSoft.LangLib
             List<FrameworkElement> elements = new List<FrameworkElement>();
             foreach (var e in LogicalTreeHelper.GetChildren(element))
             {
-                if (e is FrameworkElement)
+                if (e is FrameworkElement el)
                 {
-                    FrameworkElement el = (FrameworkElement)e;
                     if (el.Uid != string.Empty)
                     {
                         elements.Add(el);
@@ -365,11 +339,11 @@ namespace VPKSoft.LangLib
         /// <param name="clear">Whether to clear previously enumerated objects or not.</param>
         /// <param name="propertyNames">A names of the properties to include in the object list.
         /// <para/>If the value is null, no property names are prevented.</param>
-        public void GetObjects(System.Windows.Window window, CultureInfo culture, bool clear, List<string> propertyNames = null)
+        public void GetObjects(Window window, CultureInfo culture, bool clear, List<string> propertyNames = null)
         {
             FieldInfo[] fieldInfos = window.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             Clear(clear);
-            ListObjects(System.Windows.Application.ResourceAssembly.GetName().Name, window.Name, ref fieldInfos, window, culture, propertyNames);
+            ListObjects(Application.ResourceAssembly.GetName().Name, window.Name, ref fieldInfos, window, culture, propertyNames);
         }
         
         /// <summary>
@@ -424,7 +398,8 @@ namespace VPKSoft.LangLib
                 {
                     continue;
                 }
-                object obj = info.GetValue(baseObject) as object;// baseObject.GetType().GetField(info.Name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(baseObject) as object;
+
+                object obj = info.GetValue(baseObject);
                 if (obj == null)
                 {
                     continue;
@@ -470,6 +445,12 @@ namespace VPKSoft.LangLib
                     }
 
                     object val = pi.GetValue(obj);
+
+                    if (val == null)
+                    {
+                        continue;
+                    }
+
                     if (DeniedObjectNames.Contains(pi.Name))
                     {
                         continue;
@@ -482,7 +463,8 @@ namespace VPKSoft.LangLib
                     }
                 }
                 catch
-                {
+                {                    
+                    // ignored..
                 }
             }
         }
@@ -515,7 +497,8 @@ namespace VPKSoft.LangLib
                 {
                     continue;
                 }
-                object obj = info.GetValue(baseObject) as object;// baseObject.GetType().GetField(info.Name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(baseObject) as object;
+
+                object obj = info.GetValue(baseObject);
                 if (obj == null)
                 {
                     continue;
@@ -529,9 +512,9 @@ namespace VPKSoft.LangLib
                 HandlePropertiesGet(piArr, obj, productName, formWindowName, culture, name, propertyNames);
             }
 
-            if (baseObject is Window && useUids) // x:Uid support added
+            if (baseObject is Window window && useUids) // x:Uid support added
             {
-                ListObjects(productName, formWindowName, GetUidElements((Window)baseObject), culture, propertyNames);
+                ListObjects(productName, formWindowName, GetUidElements(window), culture, propertyNames);
             }
         }
 
@@ -548,9 +531,6 @@ namespace VPKSoft.LangLib
         /// <para/>If the value is null, no property names are prevented.</param>
         private void ListObjects(string productName, string formWindowName, List<FrameworkElement> elements, CultureInfo culture, List<string> propertyNames = null) // x:Uid support added
         {
-            string name;
-            PropertyInfo[] piArr;
-
             foreach (FrameworkElement element in elements)
             {
                 if (!NameSpaceMatch(element.GetType().GetTypeInfo().Namespace))
@@ -559,16 +539,13 @@ namespace VPKSoft.LangLib
                 }
 
                 object obj = element;
-                if (obj == null)
-                {
-                    continue;
-                }
-                name = GetObjectName(GetNameProps(obj), obj);
+
+                var name = GetObjectName(GetNameProps(obj), obj);
                 if (name == "Name" || name == string.Empty)
                 {
                     continue;
                 }
-                piArr = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                var piArr = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 HandlePropertiesGet(piArr, obj, productName, formWindowName, culture, name, propertyNames);
             }
         }
@@ -588,7 +565,7 @@ namespace VPKSoft.LangLib
             }
             catch
             {
-
+                // ignored..
             }
 
             try
@@ -597,7 +574,7 @@ namespace VPKSoft.LangLib
             }
             catch
             {
-
+                // ignored..
             }
 
             try
@@ -606,7 +583,7 @@ namespace VPKSoft.LangLib
             }
             catch
             {
-
+                // ignored..
             }
             return piArrSmall;
         }
@@ -673,6 +650,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
+                    // ignored..
                 }
             }
         }
@@ -690,15 +668,15 @@ namespace VPKSoft.LangLib
             List<string> retVal = new List<string>();
             FieldInfo[] fieldInfos;
             object baseObject;
-            if (thisForm != null)
+            if (ThisForm != null)
             {
-                fieldInfos = thisForm.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                baseObject = thisForm;
+                fieldInfos = ThisForm.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                baseObject = ThisForm;
             }
-            else if (thisWindow != null)
+            else if (ThisWindow != null)
             {
-                fieldInfos = thisWindow.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                baseObject = thisWindow;
+                fieldInfos = ThisWindow.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                baseObject = ThisWindow;
             }
             else
             {
@@ -708,7 +686,7 @@ namespace VPKSoft.LangLib
 
             foreach (FieldInfo info in fieldInfos)
             {
-                object obj = baseObject.GetType().GetField(info.Name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(baseObject) as object;
+                object obj = baseObject.GetType().GetField(info.Name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)?.GetValue(baseObject);
                 if (obj == null)
                 {
                     continue;
@@ -721,7 +699,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
-
+                    // ignored..
                 }
 
                 try
@@ -730,7 +708,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
-
+                    // ignored..
                 }
 
                 try
@@ -739,7 +717,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
-
+                    // ignored..
                 }
 
                 if (piArrSmall.Count == 0)
@@ -749,7 +727,6 @@ namespace VPKSoft.LangLib
 
                 string name = GetObjectName(piArrSmall, baseObject);
 
-                PropertyInfo[] piArr = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 if (!NameSpaceMatch(info.FieldType.Namespace))
                 {
                     continue;
@@ -809,7 +786,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
-
+                    // ignored..
                 }
             }
             return string.Empty;
@@ -821,7 +798,7 @@ namespace VPKSoft.LangLib
         /// <returns>An enumerator for a GuiObject class instance collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return GetEnumerator();
         }
 
         /// <summary>
@@ -842,7 +819,7 @@ namespace VPKSoft.LangLib
         /// <summary>
         /// An internal array of GuiObject class instances.
         /// </summary>
-        private List<GuiObject> wfObjects = new List<GuiObject>();
+        private readonly List<GuiObject> wfObjects = new List<GuiObject>();
 
         /// <summary>
         /// Enumerators are positioned before the first element 
@@ -890,13 +867,7 @@ namespace VPKSoft.LangLib
         /// Gets the current GuiObject instance in the 
         /// <para/>class internal collection.
         /// </summary>
-        object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
+        object IEnumerator.Current => Current;
 
         /// <summary>
         /// Gets the current GuiObject instance in the 
@@ -924,48 +895,22 @@ namespace VPKSoft.LangLib
     public class GuiObject
     {
         /// <summary>
-        /// A combination of the applications assembly name and
-        /// <para/>the underlying form / window name.
-        /// </summary>
-        private string appForm = string.Empty;
-
-        /// <summary>
-        /// An item name. E.g. "Form1".
-        /// </summary>
-        private string item = string.Empty;
-
-        /// <summary>
-        /// The culture of the GuiObject instance.
-        /// </summary>
-        private CultureInfo culture = CultureInfo.CurrentCulture;
-
-        /// <summary>
         /// A property name. E.g. "Text".
         /// </summary>
-        private string propertyName = string.Empty;
-
-        /// <summary>
-        /// A value type. E.g. "System.String".
-        /// </summary>
-        private string valueType = typeof(string).ToString();
+        private string propertyName;
 
         /// <summary>
         /// An object instance place holder representing
         /// <para/>the value of referring GuiObject instance.
         /// </summary>
-        private object value = new object();
-
-        /// <summary>
-        /// If the object is in use or is not found.
-        /// </summary>
-        private bool inUse = false;
+        private object value;
 
         /// <summary>
         /// A reference to the underlying object.
         /// </summary>
-        private object objectRef = new object();
+        private object objectRef;
 
-        private PropertyInfo pi = null;
+        private PropertyInfo pi;
 
         /// <summary>
         /// The constructor of the GuiObject class.
@@ -982,21 +927,21 @@ namespace VPKSoft.LangLib
         /// <param name="objectRef">A reference to the underlying object.</param>
         public GuiObject(string appForm, string item, CultureInfo culture, string propertyName, string valueType, object value, bool inUse, object objectRef)
         {
-            this.appForm = appForm;
-            this.item = item;
-            this.culture = culture;
+            this.AppForm = appForm;
+            this.Item = item;
+            this.Culture = culture;
             this.propertyName = propertyName;
-            this.valueType = valueType;
+            this.ValueType = valueType;
             this.value = value;
-            this.inUse = inUse;
+            this.InUse = inUse;
             this.objectRef = objectRef;
             if (objectRef != null)
             {
                 try
                 {
-                    if (objectRef is PropertyInfo)
+                    if (objectRef is PropertyInfo @ref)
                     {
-                        pi = objectRef as PropertyInfo;
+                        pi = @ref;
                     }
                     else
                     {
@@ -1005,7 +950,7 @@ namespace VPKSoft.LangLib
                 }
                 catch
                 {
-
+                    // ignored..
                 }
             }
         }
@@ -1015,10 +960,7 @@ namespace VPKSoft.LangLib
         /// </summary>
         public object ObjectRef
         {
-            get
-            {
-                return objectRef;
-            }
+            get => objectRef;
 
             set
             {
@@ -1031,7 +973,7 @@ namespace VPKSoft.LangLib
                     }
                     catch
                     {
-
+                        // ignored..
                     }
                 }
             }
@@ -1051,12 +993,15 @@ namespace VPKSoft.LangLib
                 {
                     if (pi != null)
                     {
-                        pi.SetValue(objectRef, val == null ? this.value : val);
+                        pi.SetValue(objectRef, val ?? value);
                     }
                     else
                     {
                         pi = objectRef.GetType().GetProperty(propertyName);
-                        pi.SetValue(objectRef, val == null ? this.value : val);
+                        if (pi != null)
+                        {
+                            pi.SetValue(objectRef, val ?? value);
+                        }
                     }
                 }
                 return true;
@@ -1071,65 +1016,26 @@ namespace VPKSoft.LangLib
         /// A combination of the applications assembly name and
         /// <para/>the underlying form / window name.
         /// </summary>
-        public string AppForm
-        {
-            get
-            {
-                return appForm;
-            }
-
-            set
-            {
-                appForm = value;
-            }
-        }
+        public string AppForm { get; set; }
 
         /// <summary>
         /// An item name. E.g. "Form1".
         /// </summary>
-        public string Item
-        {
-            get
-            {
-                return item;
-            }
-
-            set
-            {
-                item = value;
-            }
-        }
+        public string Item { get; set; }
 
         /// <summary>
         /// The culture of the GuiObject instance.
         /// </summary>
-        public CultureInfo Culture
-        {
-            get
-            {
-                return culture;
-            }
-
-            set
-            {
-                culture = value;
-            }
-        }
+        public CultureInfo Culture { get; set; }
 
         /// <summary>
         /// A property name. E.g. "Text".
         /// </summary>
         public string PropertyName
         {
-            get
-            {
-                return propertyName;
-            }
+            get => propertyName;
 
-            set
-            {
-                propertyName = value;
-            }
+            set => propertyName = value;
         }
 
         /// <summary>
@@ -1138,47 +1044,19 @@ namespace VPKSoft.LangLib
         /// </summary>
         public object Value
         {
-            get
-            {
-                return value;
-            }
+            get => value;
 
-            set
-            {
-                this.value = value;
-            }
+            set => this.value = value;
         }
 
         /// <summary>
         /// A value type. E.g. "System.String".
         /// </summary>
-        public string ValueType
-        {
-            get
-            {
-                return valueType;
-            }
-
-            set
-            {
-                valueType = value;
-            }
-        }
+        public string ValueType { get; set; }
 
         /// <summary>
         /// If the object is in use or is not found.
         /// </summary>
-        public bool InUse
-        {
-            get
-            {
-                return inUse;
-            }
-
-            set
-            {
-                inUse = value;
-            }
-        }     
+        public bool InUse { get; set; }
     }
 }

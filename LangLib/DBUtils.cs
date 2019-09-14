@@ -24,12 +24,6 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace VPKSoft
 {
     namespace LangLib
@@ -37,15 +31,15 @@ namespace VPKSoft
         /// <summary>
         /// A static class for database utilities.
         /// </summary>
-        public static class DBUtils
+        public static class DbUtils
         {
             /// <summary>
-            /// Makes a string a database combatible.
+            /// Makes a string a database compatible.
             /// <para/> -Hyphens (') are replaced with double hyphens.
             /// <para/> -The returning string is surrounded with hyphens (').
             /// </summary>
             /// <param name="str">A string to make database compatible.</param>
-            /// <returns>A database combatible string.</returns>
+            /// <returns>A database compatible string.</returns>
             public static string MkStr(string str)
             {
                 return "'" + str.Replace("'", "''") + "'";

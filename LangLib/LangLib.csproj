@@ -45,15 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBLangEngine.cs" />
-    <Compile Include="DBLangEngineWinforms.cs">
+    <Compile Include="LangLib\DBLangEngineWinforms.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DBUtils.cs" />
-    <Compile Include="GuiObjectsEnum.cs" />
-    <Compile Include="DBLangEngineWPF.cs" />
+    <Compile Include="LangLib\GuiObjectsEnum.cs" />
+    <Compile Include="LangLib\DBLangEngineWPF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringMessages.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="LangLib\StringMessages.cs" />
+    <Compile Include="LangLib\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LangLib.nuspec">
@@ -61,6 +61,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(SolutionDir)DBLocalization\bin\Release\DBLocalization.exe" "$(TargetDir)"</PostBuildEvent>

@@ -157,7 +157,7 @@ namespace DBLocalization
             {
                 command.CommandText = "SELECT APP_FORM, ITEM, CULTURE, PROPERTYNAME, VALUETYPE, VALUE, IFNULL(INUSE, 0) AS INUSE " +
                                       "FROM FORMITEMS " +
-                                      "WHERE CULTURE = " + DBUtils.MkStr(culture) + " " +
+                                      "WHERE CULTURE = " + DbUtils.MkStr(culture) + " " +
                                       "ORDER BY APP_FORM, ITEM";
                 using (SQLiteDataReader dr = command.ExecuteReader())
                 {
@@ -191,7 +191,7 @@ namespace DBLocalization
             {
                 command.CommandText = "SELECT MESSAGENAME, VALUE, COMMENT_EN_US, CULTURE, IFNULL(INUSE, 0) AS INUSE " +
                                       "FROM MESSAGES " +
-                                      "WHERE CULTURE = " + DBUtils.MkStr(culture) + " " +
+                                      "WHERE CULTURE = " + DbUtils.MkStr(culture) + " " +
                                       "ORDER BY MESSAGENAME, VALUE ";
 
                 using (SQLiteDataReader dr = command.ExecuteReader())
@@ -227,12 +227,12 @@ namespace DBLocalization
                                      "CULTURE = {2} AND PROPERTYNAME = {3}); " +
                                      "UPDATE FORMITEMS SET INUSE = {6} WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                      "CULTURE = {2} AND PROPERTYNAME = {3}; ",
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colApp.Index].Value.ToString() + "." + gvFormItems.Rows[i].Cells[colForm.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colItem.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colCulture.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colPropertyName.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colValueType.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colValue.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colApp.Index].Value.ToString() + "." + gvFormItems.Rows[i].Cells[colForm.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colItem.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colCulture.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colPropertyName.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colValueType.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colValue.Index].Value.ToString()),
                                      (gvFormItems.Rows[i].Cells[colInUse.Index].Value.ToString() == false.ToString() ? "0" : "1"));
             }
             using (SQLiteTransaction trans = conn.BeginTransaction())
@@ -253,10 +253,10 @@ namespace DBLocalization
                                      "SELECT {0}, {1}, {2}, {3}, {4} " +
                                      "WHERE NOT EXISTS(SELECT 1 FROM MESSAGES WHERE CULTURE = {0} AND MESSAGENAME = {1}); " +
                                      "UPDATE MESSAGES SET INUSE = {4} WHERE CULTURE = {0} AND MESSAGENAME = {1}; ",
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageCulture.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageName.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageValue.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colCommentEnUs.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageCulture.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageName.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageValue.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colCommentEnUs.Index].Value.ToString()),
                                      (gvMessages.Rows[i].Cells[colMsgInUse.Index].Value.ToString() == false.ToString() ? "0" : "1"));                
             }
 
@@ -278,9 +278,9 @@ namespace DBLocalization
             {
                 sql += string.Format("UPDATE MESSAGES SET VALUE = {0} " +
                                      "WHERE CULTURE = {1} AND MESSAGENAME = {2}; ",
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageValue.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageCulture.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvMessages.Rows[i].Cells[colMessageName.Index].Value.ToString()));
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageValue.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageCulture.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvMessages.Rows[i].Cells[colMessageName.Index].Value.ToString()));
 
             }
 
@@ -299,11 +299,11 @@ namespace DBLocalization
             {
                 sql += string.Format("UPDATE FORMITEMS SET VALUE = {0} " +
                                      "WHERE CULTURE = {1} AND APP_FORM = {2} AND PROPERTYNAME = {3} AND ITEM = {4}; ",
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colValue.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colCulture.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colApp.Index].Value.ToString() + "." + gvFormItems.Rows[i].Cells[colForm.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colPropertyName.Index].Value.ToString()),
-                                     DBUtils.MkStr(gvFormItems.Rows[i].Cells[colItem.Index].Value.ToString()));
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colValue.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colCulture.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colApp.Index].Value.ToString() + "." + gvFormItems.Rows[i].Cells[colForm.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colPropertyName.Index].Value.ToString()),
+                                     DbUtils.MkStr(gvFormItems.Rows[i].Cells[colItem.Index].Value.ToString()));
             }
             using (SQLiteTransaction trans = conn.BeginTransaction())
             {
@@ -349,8 +349,8 @@ namespace DBLocalization
         private void mnuRemoveUnused_Click(object sender, EventArgs e)
         {
             string culture = (cbCulture.Items[cbCulture.SelectedIndex] as Culture).CultureText;
-            string sql = string.Format("DELETE FROM MESSAGES  WHERE IFNULL(INUSE, 0) = 0 AND CULTURE = {0}; ", DBUtils.MkStr(culture));
-            sql += string.Format("DELETE FROM FORMITEMS WHERE IFNULL(INUSE, 0) = 0 AND CULTURE = {0}; ", DBUtils.MkStr(culture));
+            string sql = string.Format("DELETE FROM MESSAGES  WHERE IFNULL(INUSE, 0) = 0 AND CULTURE = {0}; ", DbUtils.MkStr(culture));
+            sql += string.Format("DELETE FROM FORMITEMS WHERE IFNULL(INUSE, 0) = 0 AND CULTURE = {0}; ", DbUtils.MkStr(culture));
             using (SQLiteTransaction trans = conn.BeginTransaction())
             {
                 using (SQLiteCommand command = new SQLiteCommand(conn))
