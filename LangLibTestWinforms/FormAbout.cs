@@ -41,12 +41,12 @@ namespace LangLibTestWinforms
         public FormAbout()
         {
             InitializeComponent();
-            DBLangEngine.InitalizeLanguage("SimpleBackup.Messages");
+            DBLangEngine.InitializeLanguage("SimpleBackup.Messages");
 
             DBLangEngine.DBName = "LangLibTestWinforms.sqlite";
             if (Utils.ShouldLocalize() != null)
             {
-                DBLangEngine.InitalizeLanguage("LangLibTestWinforms.Messages", Utils.ShouldLocalize(), false);
+                DBLangEngine.InitializeLanguage("LangLibTestWinforms.Messages", Utils.ShouldLocalize(), false);
                 return; // After localization don't do anything more.
             }
 

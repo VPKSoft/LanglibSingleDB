@@ -55,10 +55,10 @@ namespace LangLibTestWPF
             DBLangEngine.DBName = "LangLibTestWPF.sqlite";
             if (Utils.ShouldLocalize() != null)
             {
-                DBLangEngine.InitalizeLanguage("LangLibTestWPF.Messages", Utils.ShouldLocalize(), false);
+                DBLangEngine.InitializeLanguage("LangLibTestWPF.Messages", Utils.ShouldLocalize(), false);
                 return; // After localization don't do anything more.
             }
-            DBLangEngine.InitalizeLanguage("LangLibTestWPF.Messages");
+            DBLangEngine.InitializeLanguage("LangLibTestWPF.Messages");
             lbFallbackCulture.Content = DBLangEngine.FallBackCulture.ToString();
             lbCurrentSysCulture.Content = System.Globalization.CultureInfo.CurrentCulture.ToString();
             try

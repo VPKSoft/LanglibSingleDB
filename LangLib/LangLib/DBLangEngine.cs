@@ -25,21 +25,14 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Globalization;
-using System.Reflection;
-using System.Collections;
-using System.Resources;
 using System.IO;
-using System.Windows;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
 
 namespace VPKSoft.LangLib
 {
@@ -53,10 +46,12 @@ namespace VPKSoft.LangLib
         /// <summary>
         /// WPF (for Windows Presentation Foundation)
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         WPF, 
         /// <summary>
         /// WinForms (for Windows Forms application)
         /// </summary>
+        // ReSharper disable once IdentifierTypo
         Winforms, 
         /// <summary>
         /// Undefined (for throwing exceptions)
@@ -66,6 +61,7 @@ namespace VPKSoft.LangLib
     /// <summary>
     /// A class to enumerate Form / Window objects and properties.
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public class DBLangEngine: GuiObjectsEnum
     {
         /// <summary>
@@ -87,7 +83,7 @@ namespace VPKSoft.LangLib
             this.appType = appType;
             ThisForm = form;
             // int the data directory with default
-            dataDir = GetAppSettingsFolder(appType);
+            _dataDir = GetAppSettingsFolder(appType);
         }
 
         /// <summary>
@@ -108,18 +104,18 @@ namespace VPKSoft.LangLib
             this.useUids = useUids;
             ThisWindow = window;
             // int the data directory with default
-            dataDir = GetAppSettingsFolder(appType);
+            _dataDir = GetAppSettingsFolder(appType);
         }        
 
         /// <summary>
         /// A writable data directory.
         /// </summary>
-        private static string dataDir;
+        private static string _dataDir;
 
         /// <summary>
         /// A default database name.
         /// </summary>
-        private static string dbName = "lang.sqlite";
+        private static string _dbName = "lang.sqlite";
 
         /// <summary>
         /// Just returns the default writable data directory for "non-roaming" applications.
@@ -176,11 +172,12 @@ namespace VPKSoft.LangLib
         /// Gets or sets the SQLite database file name residing in DataDir.
         /// <para/>The default is lang.sqlite.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public static string DBName
         {
             get
             {
-                return dbName;
+                return _dbName;
             }
 
             set
@@ -190,10 +187,10 @@ namespace VPKSoft.LangLib
                     throw new ArgumentException("Empty string is not allowed.");
                 }
 
-                dbName = value;
+                _dbName = value;
                 foreach (char chr in Path.GetInvalidFileNameChars())
                 {
-                    dbName = dbName.Replace(chr, '_');
+                    _dbName = _dbName.Replace(chr, '_');
                 }
             }
         }
@@ -206,7 +203,7 @@ namespace VPKSoft.LangLib
         {
             get
             {
-                return dataDir;
+                return _dataDir;
             }
 
             set
@@ -216,13 +213,13 @@ namespace VPKSoft.LangLib
                     throw new ArgumentException("Empty string is not allowed.");
                 }
 
-                dataDir = value;
+                _dataDir = value;
                 foreach (char chr in Path.GetInvalidPathChars())
                 {
-                    dataDir = dataDir.Replace(chr, '_');
+                    _dataDir = _dataDir.Replace(chr, '_');
                 }
 
-                dataDir = dataDir.EndsWith(@"\") ? dataDir : dataDir + @"\";
+                _dataDir = _dataDir.EndsWith(@"\") ? _dataDir : _dataDir + @"\";
             }            
         }
 
@@ -230,25 +227,29 @@ namespace VPKSoft.LangLib
         /// If the messages were saved to the database 
         /// <para/>using the FallBackCulture property.
         /// </summary>
-        private static bool messagesSaved = false;
+        // ReSharper disable once InconsistentNaming
+        private static bool messagesSaved;
 
         /// <summary>
         /// If the INUSE field int the database was updated.
         /// </summary>
-        private static bool langUseUpdated = false;
+        // ReSharper disable once InconsistentNaming
+        private static bool langUseUpdated;
 
         /// <summary>
         /// If the entire culture list supported by
         /// <para/>the .NET Framework were inserted into to
         /// <para/>language database.
         /// </summary>
-        private static bool culturesInserted = false;
+        // ReSharper disable once InconsistentNaming
+        private static bool culturesInserted;
 
         /// <summary>
         /// If all the database tables required by the
         /// <para/>library where created.
         /// </summary>
-        private static bool tablesCreated = false;
+        // ReSharper disable once InconsistentNaming
+        private static bool tablesCreated;
 
         /// <summary>
         /// Application product name and the
@@ -259,7 +260,8 @@ namespace VPKSoft.LangLib
         /// <summary>
         /// The SQLite database connection to used for this library.
         /// </summary>
-        private static SQLiteConnection DBLangConnnection = null;
+        // ReSharper disable once InconsistentNaming
+        private static SQLiteConnection DBLangConnnection;
 
         /// <summary>
         /// If the library should buffer the language items
@@ -267,13 +269,13 @@ namespace VPKSoft.LangLib
         /// <para/>This is to avoid slowness created by
         /// <para/>multiple transactions instead of one.
         /// </summary>
-        private bool buffer = false;
+        private bool buffer;
 
         /// <summary>
         /// Used as a buffer for SQL sentences to avoid
         /// <para/>too small transactions.
         /// </summary>
-        private string sql_entry = string.Empty;
+        private string sqlEntry = string.Empty;
 
         /// <summary>
         /// A list of forms / windows that already
@@ -304,11 +306,11 @@ namespace VPKSoft.LangLib
         public static CultureInfo FallBackCulture { get; set; } = new CultureInfo(1033);
 
         // a value to be used with the UseCulture property..
-        private static CultureInfo _UseCulture = null;
+        private static CultureInfo _useCulture;
 
         // and indicator if a culture which should be used instead of the 
         // system's culture has been read from the command line arguments..
-        private static bool _ParamCultureChecked = false;
+        private static bool _paramCultureChecked;
 
         /// <summary>
         /// Gets or sets the culture to be used instead of the system's culture.
@@ -318,11 +320,11 @@ namespace VPKSoft.LangLib
             get
             {
                 // if the property value "holder" is null and no command line argument check has been done..
-                if (_UseCulture == null && !_ParamCultureChecked)
+                if (_useCulture == null && !_paramCultureChecked)
                 {
                     // ..check the command line arguments and if an instruction for the culture to be used
                     // has been given..
-                    foreach (string arg in System.Environment.GetCommandLineArgs())
+                    foreach (string arg in Environment.GetCommandLineArgs())
                     {
                         // this is the argument..
                         if (arg.StartsWith("--language="))
@@ -337,36 +339,36 @@ namespace VPKSoft.LangLib
                                 if (int.TryParse(arg.Split('=')[1], out _))
                                 {
                                     // ..use the integer value to create a culture from a locale identifier (LCID)..
-                                    _UseCulture = CultureInfo.GetCultureInfo(int.Parse(arg.Split('=')[1]));
+                                    _useCulture = CultureInfo.GetCultureInfo(int.Parse(arg.Split('=')[1]));
                                 }
                                 else
                                 {
                                     // try to create a culture from a given name (BCP-47 tag == IETF language tag):
                                     // https://en.wikipedia.org/wiki/IETF_language_tag
-                                    _UseCulture = CultureInfo.GetCultureInfo(cultureName);
+                                    _useCulture = CultureInfo.GetCultureInfo(cultureName);
                                 }
                             }
                             catch
                             {
                                 // an exception occurred, so do fall back to the current system's culture..
-                                _UseCulture = CultureInfo.CurrentCulture;
+                                _useCulture = CultureInfo.CurrentCulture;
                             }
                         }
                     }
                     // set the flag to not the check the culture again from command line arguments..
-                    _ParamCultureChecked = true;
+                    _paramCultureChecked = true;
                 }
                 // return the value..
-                return _UseCulture;
+                return _useCulture;
             }
 
             set
             {
                 // set the value of the culture to override the system's current culture..
-                _UseCulture = value;
+                _useCulture = value;
 
                 // set the flag to not the check the culture again from command line arguments..
-                _ParamCultureChecked = true;
+                _paramCultureChecked = true;
             }
         }
 
@@ -417,13 +419,8 @@ namespace VPKSoft.LangLib
         /// <para/>If no culture is given the current system culture is used and
         /// <para/>the FallBackCulture is used as fall-back culture.</param>
         /// <param name="loadItems">To load language items or not.</param>
-        public void InitalizeLanguage(string messageResource, CultureInfo culture = null, bool loadItems = true)
-        {            
-            if (culture == null)
-            {
-                culture = CultureInfo.CurrentCulture;
-            }
-            
+        public void InitializeLanguage(string messageResource, CultureInfo culture = null, bool loadItems = true)
+        {
             if (!Design)
             {
                 try
@@ -531,7 +528,7 @@ namespace VPKSoft.LangLib
 
                     if (!loadItems)
                     {
-                        SaveMessages(messageResource, Assembly.GetExecutingAssembly(), ref DBLangConnnection);
+                        SaveMessages(messageResource, ref DBLangConnnection);
                     }
 
                     ts = ts.Add((DateTime.Now - dt));
@@ -577,6 +574,7 @@ namespace VPKSoft.LangLib
         /// An exception that is thrown if The SQLite library may be:
         /// wrong version/wrong processor architecture/missing SQLite.Interop.dll/etc..
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public class InvalidSQLIteLibException: Exception
         {
             /// <summary>
@@ -592,13 +590,14 @@ namespace VPKSoft.LangLib
 
         /// <summary>
         /// The total time the library has spent in the
-        /// <para/>InitalizeLanguage method.
+        /// <para/>InitializeLanguage method.
         /// </summary>
-        private static TimeSpan ts = new TimeSpan();
+        // ReSharper disable once InconsistentNaming
+        private static TimeSpan ts;
 
         /// <summary>
         /// The total time the library has spent in the
-        /// <para/>InitalizeLanguage method in seconds. 
+        /// <para/>InitializeLanguage method in seconds. 
         /// <para/>This property is mostly for testing and optimization purposes.
         /// </summary>
         public double InitTime
@@ -611,7 +610,7 @@ namespace VPKSoft.LangLib
 
         /// <summary>
         /// Gets the total time the library has spent in the
-        /// <para/>InitalizeLanguage method.
+        /// <para/>InitializeLanguage method.
         /// <para/>This property is mostly for testing and optimization purposes.
         /// </summary>
         public TimeSpan InitTimeSpan
@@ -650,11 +649,11 @@ namespace VPKSoft.LangLib
                 }
             }
 
-            SQLiteConnection statDBLangConnnection = new SQLiteConnection("Data Source=" + DataDir + DBName + ";Pooling=true;FailIfMissing=false");
-            statDBLangConnnection.Open();
-            using (statDBLangConnnection)
+            SQLiteConnection statDbLangConnection = new SQLiteConnection("Data Source=" + DataDir + DBName + ";Pooling=true;FailIfMissing=false");
+            statDbLangConnection.Open();
+            using (statDbLangConnection)
             {
-                using (SQLiteCommand command = new SQLiteCommand(statDBLangConnnection))
+                using (SQLiteCommand command = new SQLiteCommand(statDbLangConnection))
                 {
                     command.CommandText = string.Format("SELECT VALUE, 0 AS SORT FROM MESSAGES " +
                                                         "WHERE CULTURE = {0} AND MESSAGENAME = {1} " +
@@ -685,8 +684,7 @@ namespace VPKSoft.LangLib
                         }
                         else
                         {
-                            string value, comment;
-                            SplitMessage(defaultMessage, out value, out comment);
+                            SplitMessage(defaultMessage, out var value, out _);
                             try
                             {
                                 return string.Format(value, items);
@@ -813,8 +811,7 @@ namespace VPKSoft.LangLib
                     }
                     else
                     {
-                        string value, comment;
-                        SplitMessage(defaultMessage, out value, out comment);
+                        SplitMessage(defaultMessage, out var value, out _);
                         try
                         {
                             return string.Format(value, items);
@@ -837,7 +834,7 @@ namespace VPKSoft.LangLib
         public void BeginBuffer()
         {
             buffer = true;
-            sql_entry = string.Empty;
+            sqlEntry = string.Empty;
         }
 
         /// <summary>
@@ -854,12 +851,12 @@ namespace VPKSoft.LangLib
                 {
                     using (SQLiteCommand command = new SQLiteCommand(DBLangConnnection))
                     {
-                        command.CommandText = sql_entry;
+                        command.CommandText = sqlEntry;
                         command.ExecuteNonQuery();
                     }
                     trans.Commit();
                 }
-                sql_entry = string.Empty;
+                sqlEntry = string.Empty;
             }
         }
 
@@ -867,7 +864,7 @@ namespace VPKSoft.LangLib
         /// Inserts a single language item to the database or buffers
         /// <para/>it if the BeginBuffer method has been called before.
         /// </summary>
-        /// <param name="app_form">A combination of the applications assembly name and
+        /// <param name="appForm">A combination of the applications assembly name and
         /// <para/>the underlying form / window name.</param>
         /// <param name="item">An item name. E.g. "Form1".</param>
         /// <param name="propertyName">A property name. E.g. "Text".</param>
@@ -875,17 +872,17 @@ namespace VPKSoft.LangLib
         /// <param name="value">A property value. E.g. "Form1".</param>
         /// <param name="ci">The culture in which language the item is.
         /// <para/>The database field FORMITEMS.INUSE is also updated to value of 1.</param>
-        public void InsertLangItem(string app_form, string item, string propertyName, string valueType, string value, CultureInfo ci)
+        public void InsertLangItem(string appForm, string item, string propertyName, string valueType, string value, CultureInfo ci)
         {
             if (buffer)
             {
-                sql_entry += string.Format("INSERT INTO FORMITEMS (APP_FORM, ITEM, CULTURE, PROPERTYNAME, VALUETYPE, VALUE) " +
+                sqlEntry += string.Format("INSERT INTO FORMITEMS (APP_FORM, ITEM, CULTURE, PROPERTYNAME, VALUETYPE, VALUE) " +
                                            "SELECT {0}, {1}, {2}, {3}, {4}, {5} " +
                                            "WHERE NOT EXISTS (SELECT 1 FROM FORMITEMS WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                            "CULTURE = {2} AND PROPERTYNAME = {3}); " +
                                            "UPDATE FORMITEMS SET INUSE = 1 WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                            "PROPERTYNAME = {3}; ",
-                                           DbUtils.MkStr(app_form),
+                                           DbUtils.MkStr(appForm),
                                            DbUtils.MkStr(item),
                                            DbUtils.MkStr(ci.Name),
                                            DbUtils.MkStr(propertyName),
@@ -902,7 +899,7 @@ namespace VPKSoft.LangLib
                                                         "CULTURE = {2} AND PROPERTYNAME = {3}); " +
                                                         "UPDATE FORMITEMS SET INUSE = 1 WHERE APP_FORM = {0} AND ITEM = {1} AND " +
                                                         "PROPERTYNAME = {3}; ",
-                                                        DbUtils.MkStr(app_form),
+                                                        DbUtils.MkStr(appForm),
                                                         DbUtils.MkStr(item),
                                                         DbUtils.MkStr(ci.Name),
                                                         DbUtils.MkStr(propertyName),
@@ -963,9 +960,8 @@ namespace VPKSoft.LangLib
         /// <para/>For example if I have an application which assembly name is
         /// <para/>LangLibTestWinforms and it has a .resx file called Messages
         /// <para/>I would give this parameter a value of "LangLibTestWinforms.Messages"</param>
-        /// <param name="assembly">The product's assembly (executing assembly).</param>
         /// <param name="conn">Reference to a SQLiteConnection class instance.</param>
-        public static void SaveMessages(string resourcefile, Assembly assembly, ref SQLiteConnection conn)
+        public static void SaveMessages(string resourcefile, ref SQLiteConnection conn)
         {
             if (messagesSaved)
             {
@@ -980,22 +976,25 @@ namespace VPKSoft.LangLib
             string sql = string.Empty;
             sql += "UPDATE MESSAGES SET INUSE = 0 WHERE CULTURE = " + DbUtils.MkStr(FallBackCulture.Name) + "; ";
 
-            assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.GetEntryAssembly();
 
-            ResourceManager rm = new ResourceManager(resourcefile, assembly);
-            ResourceSet rs = rm.GetResourceSet(CultureInfo.InvariantCulture, true, true);
-            foreach (DictionaryEntry i in rs)
+            if (assembly != null)
             {
-                string value, comment;
-                SplitMessage(i, out value, out comment);
-                sql += string.Format("INSERT INTO MESSAGES(CULTURE, MESSAGENAME, VALUE, COMMENT_EN_US) " +
-                                     "SELECT {0}, {1}, {2}, {3} " +
-                                     "WHERE NOT EXISTS(SELECT 1 FROM MESSAGES WHERE CULTURE = {0} AND MESSAGENAME = {1}); " +
-                                     "UPDATE MESSAGES SET INUSE = 1 WHERE MESSAGENAME = {1}; ",
-                                     DbUtils.MkStr(FallBackCulture.Name),
-                                     DbUtils.MkStr(i.Key.ToString()),
-                                     DbUtils.MkStr(value),
-                                     DbUtils.MkStr(comment));
+                ResourceManager rm = new ResourceManager(resourcefile, assembly);
+                ResourceSet rs = rm.GetResourceSet(CultureInfo.InvariantCulture, true, true);
+                foreach (DictionaryEntry i in rs)
+                {
+                    string value, comment;
+                    SplitMessage(i, out value, out comment);
+                    sql += string.Format("INSERT INTO MESSAGES(CULTURE, MESSAGENAME, VALUE, COMMENT_EN_US) " +
+                                         "SELECT {0}, {1}, {2}, {3} " +
+                                         "WHERE NOT EXISTS(SELECT 1 FROM MESSAGES WHERE CULTURE = {0} AND MESSAGENAME = {1}); " +
+                                         "UPDATE MESSAGES SET INUSE = 1 WHERE MESSAGENAME = {1}; ",
+                        DbUtils.MkStr(FallBackCulture.Name),
+                        DbUtils.MkStr(i.Key.ToString()),
+                        DbUtils.MkStr(value),
+                        DbUtils.MkStr(comment));
+                }
             }
 
             using (SQLiteTransaction trans = conn.BeginTransaction())
@@ -1012,6 +1011,7 @@ namespace VPKSoft.LangLib
         /// <summary>
         /// Internal class for caching localization items.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         private class DBCacheHolder
         {
             /// <summary>
@@ -1117,22 +1117,23 @@ namespace VPKSoft.LangLib
         }
 
         /// <summary>
-        /// Gets all items for the given <paramref name="app_form"/> bases on the given culture.
+        /// Gets all items for the given <paramref name="appForm"/> bases on the given culture.
         /// <para/>If the given culture does not exist the FallBackCulture is used.
         /// </summary>
-        /// <param name="app_form">A combination of the applications assembly name and
+        /// <param name="appForm">A combination of the applications assembly name and
         /// <para/>the underlying form / window name.</param>
         /// <param name="ci">A culture to use for getting the form / window items.</param>
-        public void RunDBCache(string app_form, CultureInfo ci)
+        // ReSharper disable once InconsistentNaming
+        public void RunDBCache(string appForm, CultureInfo ci)
         {
             // Let's not use database connection if already cached.
-            if (DBCacheHolder.ListContains(app_form, DBCache))
+            if (DBCacheHolder.ListContains(appForm, DBCache))
             {
                 foreach (GuiObject go in this)
                 {
                     try
                     {
-                        DBCacheHolder dc = DBCache.First(first => first.PropertyName == go.PropertyName && first.Item == go.Item && first.AppForm == app_form);
+                        DBCacheHolder dc = DBCache.First(first => first.PropertyName == go.PropertyName && first.Item == go.Item && first.AppForm == appForm);
                         if (dc != null)
                         {
                             if (dc.ValueType == "System.String")
@@ -1160,7 +1161,7 @@ namespace VPKSoft.LangLib
                                                     "FROM FORMITEMS " +
                                                     "WHERE APP_FORM = {0} AND CULTURE = {2} " +
                                                     "ORDER BY SORT ",
-                                                    DbUtils.MkStr(app_form),
+                                                    DbUtils.MkStr(appForm),
                                                     DbUtils.MkStr(GetUseCulture(ci).Name),
                                                     DbUtils.MkStr(FallBackCulture.Name));
                 using (SQLiteDataReader dr = command.ExecuteReader())
@@ -1207,12 +1208,12 @@ namespace VPKSoft.LangLib
         /// Gets a list of strings of properties to localize from
         /// <para/>from the language database.
         /// </summary>
-        /// <param name="app_form">Application product name concatenated with dot (.)
+        /// <param name="appForm">Application product name concatenated with dot (.)
         /// <para/>a form or window name.</param>
         /// <param name="ci">A culture to use for getting the form / window items.</param>
         /// <returns>A list of strings of properties to localize from
         /// <para/>from the language database.</returns>
-        public List<string> LocalizedProps(string app_form, CultureInfo ci)
+        public List<string> LocalizedProps(string appForm, CultureInfo ci)
         {
             List<string> handled = new List<string>();
             using (SQLiteCommand command = new SQLiteCommand(DBLangConnnection))
@@ -1225,7 +1226,7 @@ namespace VPKSoft.LangLib
                                                     "FROM FORMITEMS " +
                                                     "WHERE APP_FORM = {0} AND CULTURE = {2} " +
                                                     "ORDER BY SORT ",
-                                                    DbUtils.MkStr(app_form),
+                                                    DbUtils.MkStr(appForm),
                                                     DbUtils.MkStr(GetUseCulture(ci).Name),
                                                     DbUtils.MkStr(FallBackCulture.Name));
                 using (SQLiteDataReader dr = command.ExecuteReader())
@@ -1234,8 +1235,6 @@ namespace VPKSoft.LangLib
                     {
                         string item = dr.GetString(3);
                         string propertyName = dr.GetString(2);
-                        string valueType = dr.GetString(0);
-                        string value = dr.GetString(1);
                         if (handled.Contains(item + "." + propertyName))
                         {
                             continue;
@@ -1307,11 +1306,7 @@ namespace VPKSoft.LangLib
                 GetObjects(this.BaseInstance as System.Windows.Window, ci, true, propertyNames);
             }
 
-            if (formNames.Contains(BaseInstanceName))
-            {
-                return;
-            }
-            else
+            if (!formNames.Contains(BaseInstanceName))
             {
                 formNames.Add(BaseInstanceName);
                 parentItem = BaseInstanceProduct + "." + BaseInstanceName;

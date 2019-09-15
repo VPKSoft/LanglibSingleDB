@@ -50,12 +50,12 @@ namespace LangLibTestWinforms
             DBLangEngine.DBName = "LangLibTestWinforms.sqlite";
             if (Utils.ShouldLocalize() != null)
             {
-                DBLangEngine.InitalizeLanguage("LangLibTestWinforms.Messages", Utils.ShouldLocalize(), false);
+                DBLangEngine.InitializeLanguage("LangLibTestWinforms.Messages", Utils.ShouldLocalize(), false);
                 return; // After localization don't do anything more.
             }
 
 
-            DBLangEngine.InitalizeLanguage("LangLibTestWinforms.Messages");
+            DBLangEngine.InitializeLanguage("LangLibTestWinforms.Messages");
 
             lbFallbackCulture.Text = DBLangEngine.FallBackCulture.ToString();
             lbCurrentSysCulture.Text = System.Globalization.CultureInfo.CurrentCulture.ToString();

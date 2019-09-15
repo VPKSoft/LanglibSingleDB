@@ -44,7 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBLangEngine.cs" />
+    <Compile Include="LangLib\DBLangEngine.cs" />
     <Compile Include="LangLib\DBLangEngineWinforms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,7 +64,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)DBLocalization\bin\Release\DBLocalization.exe" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(SolutionDir)DBLocalization\$(OutDir)DBLocalization.exe" "$(TargetDir)"
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

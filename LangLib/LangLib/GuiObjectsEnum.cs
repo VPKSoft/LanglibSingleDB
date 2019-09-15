@@ -31,6 +31,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace VPKSoft.LangLib
 {
@@ -763,21 +764,42 @@ namespace VPKSoft.LangLib
                 {
                     if (pi.Name == "Name")
                     {
-                        if (pi.GetValue(obj).ToString() != string.Empty)
+                        var value = pi.GetValue(obj);
+
+                        if (value == null)
+                        {
+                            return string.Empty;
+                        }
+
+                        if (value.ToString() != string.Empty)
                         {
                             return pi.GetValue(obj).ToString();
                         }
                     }
                     if (pi.Name == "Uid") // x:Uid support added
                     {
-                        if (pi.GetValue(obj).ToString() != string.Empty)
+                        var value = pi.GetValue(obj);
+
+                        if (value == null)
+                        {
+                            return string.Empty;
+                        }
+
+                        if (value.ToString() != string.Empty)
                         {
                             return pi.GetValue(obj).ToString();
                         }
                     }
                     if (pi.Name == "Tag")
                     {
-                        string tagName = pi.GetValue(obj).ToString();
+                        var value = pi.GetValue(obj);
+
+                        if (value == null)
+                        {
+                            return string.Empty;
+                        }
+
+                        string tagName = value.ToString();
                         if (tagName.StartsWith("Name="))
                         {
                             return tagName.Substring(tagName.IndexOf('=') + 1);
