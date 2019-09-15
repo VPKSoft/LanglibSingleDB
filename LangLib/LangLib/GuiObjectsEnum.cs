@@ -762,13 +762,18 @@ namespace VPKSoft.LangLib
             {
                 try
                 {
+                    if (pi == null)
+                    {
+                        continue;
+                    }
+
                     if (pi.Name == "Name")
                     {
                         var value = pi.GetValue(obj);
 
                         if (value == null)
                         {
-                            return string.Empty;
+                            continue;
                         }
 
                         if (value.ToString() != string.Empty)
@@ -782,7 +787,7 @@ namespace VPKSoft.LangLib
 
                         if (value == null)
                         {
-                            return string.Empty;
+                            continue;
                         }
 
                         if (value.ToString() != string.Empty)
@@ -796,7 +801,7 @@ namespace VPKSoft.LangLib
 
                         if (value == null)
                         {
-                            return string.Empty;
+                            continue;
                         }
 
                         string tagName = value.ToString();
