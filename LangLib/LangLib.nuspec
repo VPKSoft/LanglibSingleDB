@@ -10,7 +10,7 @@
     <iconUrl>https://www.vpksoft.net/site/VPKSoft.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Bug fix with null reference handling.</releaseNotes>
+    <releaseNotes>Updated System.Data.SQLite.Core dependency.</releaseNotes>
     <copyright>Copyright © VPKSoft 2019</copyright>
     <tags>LangLib VPKSoft Localization</tags>
     <license type="expression">LGPL-3.0-or-later</license>
