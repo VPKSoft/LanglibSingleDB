@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>$id$</id>
@@ -7,16 +7,17 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</projectUrl>
-    <iconUrl>https://www.vpksoft.net/site/VPKSoft.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Updated System.Data.SQLite.Core dependency.</releaseNotes>
-    <copyright>Copyright © VPKSoft 2019</copyright>
+    <copyright>Copyright © VPKSoft 2020</copyright>
     <tags>LangLib VPKSoft Localization</tags>
     <license type="expression">LGPL-3.0-or-later</license>
+    <icon>vpksoft_logo.png</icon>
   </metadata>
   <files>
     <!-- Add files from an arbitrary folder that's not necessarily in the project -->
     <file src="..\DBLocalization\bin\Release\DBLocalization.exe" target="content" />
+    <file src="vpksoft_logo.png" target="" />
   </files>
 </package>
