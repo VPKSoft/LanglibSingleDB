@@ -120,4 +120,7 @@
   <data name="msgTest" xml:space="preserve">
     <value>A test message. The last or (|) character in the string {0} splits the message into message and comment part.|A test message (this is the message comment part).</value>
   </data>
+  <data name="msgTranslateMe" xml:space="preserve">
+    <value>TranslateMe</value>
+  </data>
 </root>
