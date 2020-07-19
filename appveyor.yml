@@ -26,6 +26,9 @@ build:
   verbosity: minimal
 after_build:
 - cmd: >-
+    copy %APPVEYOR_BUILD_FOLDER%\DBLocalization\bin\Release\DBLocalization.exe %APPVEYOR_BUILD_FOLDER%\Langlib\bin\Release
+
+
     nuget pack %APPVEYOR_BUILD_FOLDER%\LangLib -Prop Configuration=Release
 
     echo %code_sign1% | base64.exe -di > VPKSoft.pfx
