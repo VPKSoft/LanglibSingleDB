@@ -6,9 +6,9 @@
     <Company>VPKSoft</Company>
     <Product>DBLocalization</Product>
     <Description>A software to localize another software</Description>
-    <Copyright>Copyright © VPKSoft 2018</Copyright>
-    <AssemblyVersion>1.0.1.2</AssemblyVersion>
-    <FileVersion>1.0.1.2</FileVersion>
+    <Copyright>Copyright © VPKSoft 2020</Copyright>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <PostBuildEvent />
     <PostBuildEvent />
@@ -19,6 +19,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
+    <Version>1.0.3</Version>
+    <PackageIcon>vpksoft_logo.png</PackageIcon>
+    <PackageProjectUrl>https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</PackageProjectUrl>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/VPKSoft/LanglibSingleDB</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -85,6 +91,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="vpksoft_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="languages.ico" />

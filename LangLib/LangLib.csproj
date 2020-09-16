@@ -9,14 +9,14 @@
     <Product>VPKSoft.LangLib</Product>
     <Description>A Library for storing application localization data into a SQLite database</Description>
     <Copyright>Copyright © VPKSoft 2020</Copyright>
-    <Version>1.0.2.1</Version>
-    <AssemblyVersion>1.0.2.1</AssemblyVersion>
-    <FileVersion>1.0.2.1</FileVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DocumentationFile>bin\$(Configuration)\VPKSoft.LangLib.xml</DocumentationFile>
     <Authors>VPKSoft</Authors>
     <PackageProjectUrl>https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</PackageProjectUrl>
-    <PackageReleaseNotes>Updated System.Data.SQLite.Core dependency.</PackageReleaseNotes>
+    <PackageReleaseNotes>See: https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</PackageReleaseNotes>
     <PackageTags>LangLib VPKSoft Localization</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PostBuildEvent>::copy /Y "$(SolutionDir)DBLocalization\$(OutDir)DBLocalization.exe" "$(TargetDir)"
@@ -29,6 +29,8 @@
   <PropertyGroup>
     <PostBuildEvent>::copy /Y "$(SolutionDir)DBLocalization\$(OutDir)DBLocalization.exe" "$(TargetDir)"
 </PostBuildEvent>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageIcon>vpksoft_logo.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -46,5 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vpksoft_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
