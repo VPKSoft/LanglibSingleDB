@@ -24,7 +24,7 @@ SOFTWARE.
 
 Write-Output "Init NuGet push..."
 
-$output_file = "VPKSoft.LangLib\CryptEnvVar.exe"
+$output_file = "LangLib\CryptEnvVar.exe"
 
 $download_url = "https://www.vpksoft.net/toolset/CryptEnvVar.exe"
 
@@ -34,7 +34,7 @@ Write-Output "Download file:  $download_url ..."
 Write-Output "Download done."
 
 # application parameters..
-$application = "VPKSoft.LangLib"
+$application = "LangLib"
 $environment_cryptor = "CryptEnvVar.exe"
 
 # create the digital signature..
@@ -52,7 +52,7 @@ Import-PfxCertificate -FilePath "C:\vpksoft.pfx" -CertStoreLocation Cert:\LocalM
 # sign and push the NuGet packages..
 if ([string]::IsNullOrEmpty($Env:CIRCLE_PR_NUMBER)) # dont push on PR's..
 {
-    $files = Get-ChildItem $Env:CIRCLE_WORKING_DIRECTORY -r -Filter *VPKSoft.LangLib*.nupkg # use the mask to discard possible third party packages..
+    $files = Get-ChildItem $Env:CIRCLE_WORKING_DIRECTORY -r -Filter *LangLib*.nupkg # use the mask to discard possible third party packages..
     for ($i = 0; $i -lt $files.Count; $i++) 
     { 
         $file = $files[$i].FullName
