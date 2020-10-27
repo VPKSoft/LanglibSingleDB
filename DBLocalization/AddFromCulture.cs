@@ -3,7 +3,7 @@
 LangLib
 
 A program and library for application localization.
-Copyright (C) 2015 VPKSoft, Petteri Kautonen
+Copyright (C) 2020 VPKSoft, Petteri Kautonen
 
 Contact: vpksoft@vpksoft.net
 

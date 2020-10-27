@@ -9,9 +9,9 @@
     <Product>VPKSoft.LangLib</Product>
     <Description>A Library for storing application localization data into a SQLite database</Description>
     <Copyright>Copyright © VPKSoft 2020</Copyright>
-    <Version>1.0.4</Version>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <Version>1.0.5</Version>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DocumentationFile>bin\$(Configuration)\VPKSoft.LangLib.xml</DocumentationFile>
     <Authors>VPKSoft</Authors>
@@ -48,7 +48,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.2" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vpksoft_logo.png">
