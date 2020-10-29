@@ -48,7 +48,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.3" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.5" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vpksoft_logo.png">
