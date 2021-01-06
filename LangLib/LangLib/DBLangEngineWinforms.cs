@@ -24,6 +24,8 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
+using System.Windows.Forms;
+
 namespace VPKSoft.LangLib
 {
     /// <summary>
@@ -44,6 +46,16 @@ namespace VPKSoft.LangLib
         public DBLangEngineWinforms()
         {
             DBLangEngine = new DBLangEngine(this, AppType.Winforms);
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="IDBLangEngineWinforms"/> interface property.
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <returns>An instance to a <see cref="DBLangEngine"/> class.</returns>
+        public static DBLangEngine InitializeInterfaceProperty(Form form)
+        {
+            return new DBLangEngine(form, AppType.Winforms);
         }
     }
 }

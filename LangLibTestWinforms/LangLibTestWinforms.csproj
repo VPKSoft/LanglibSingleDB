@@ -25,6 +25,7 @@
     <PackageProjectUrl>https://www.vpksoft.net/2015-03-31-13-33-28/libraries/langlib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VPKSoft/LanglibSingleDB</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
