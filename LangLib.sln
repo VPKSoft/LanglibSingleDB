@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LangLib", "LangLib\LangLib.csproj", "{EB006DD7-DA6B-4B7C-80DC-56DF7BAAFD6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangLib", "LangLib\LangLib.csproj", "{EB006DD7-DA6B-4B7C-80DC-56DF7BAAFD6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LangLibTestWPF", "LangLibTestWPF\LangLibTestWPF.csproj", "{D687FEB3-6420-4519-A779-737B8C44D4AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangLibTestWPF", "LangLibTestWPF\LangLibTestWPF.csproj", "{D687FEB3-6420-4519-A779-737B8C44D4AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LangLibTestWinforms", "LangLibTestWinforms\LangLibTestWinforms.csproj", "{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangLibTestWinforms", "LangLibTestWinforms\LangLibTestWinforms.csproj", "{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBLocalization", "DBLocalization\DBLocalization.csproj", "{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBLocalization", "DBLocalization\DBLocalization.csproj", "{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26895CAD-878D-4AB1-865D-28FD8495EF59}
 	EndGlobalSection
 EndGlobal

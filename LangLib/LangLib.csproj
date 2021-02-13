@@ -2,16 +2,16 @@
   <PropertyGroup>
     <RootNamespace>VPKSoft</RootNamespace>
     <AssemblyName>VPKSoft.LangLib</AssemblyName>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <RepositoryUrl>https://github.com/VPKSoft/LanglibSingleDB</RepositoryUrl>
     <AssemblyTitle>LangLib</AssemblyTitle>
     <Company>VPKSoft</Company>
     <Product>VPKSoft.LangLib</Product>
     <Description>A Library for storing application localization data into a SQLite database</Description>
     <Copyright>Copyright © VPKSoft 2021</Copyright>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
+    <Version>1.0.7</Version>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <FileVersion>1.0.7.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DocumentationFile>bin\$(Configuration)\VPKSoft.LangLib.xml</DocumentationFile>
     <Authors>VPKSoft</Authors>
@@ -32,9 +32,11 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageIcon>vpksoft_logo.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>8</LangVersion>
+    <LangVersion>9</LangVersion>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />

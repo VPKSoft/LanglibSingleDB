@@ -37,15 +37,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="FormAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="FormAbout.cs" />
     <Compile Update="FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
-    <Compile Update="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="FormMain.cs" />
     <Compile Update="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
