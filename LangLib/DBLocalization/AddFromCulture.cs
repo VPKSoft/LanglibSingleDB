@@ -26,18 +26,11 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using VPKSoft.LangLib;
 
-namespace DBLocalization
+namespace VPKSoft.DBLocalization
 {
-    public partial class AddFromCulture : Form
+    internal partial class AddFromCulture : Form
     {
         public AddFromCulture()
         {

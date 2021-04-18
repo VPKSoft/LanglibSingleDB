@@ -25,36 +25,23 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SQLite;
-using VPKSoft.LangLib;
 using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
+using VPKSoft.LangLib;
 
-namespace DBLocalization
+namespace VPKSoft.DBLocalization
 {
-    public partial class MainWindow : Form
+    public partial class LocalizeMainWindow : Form
     {
         SQLiteConnection conn = null;
-        public MainWindow()
+        public LocalizeMainWindow(string databaseFile)
         {
             InitializeComponent();
             mnuSelectCurrentCulture.Text = "Select current culture (" + CultureInfo.CurrentCulture.ToString() + ")";
 
-            foreach (string arg in Environment.GetCommandLineArgs())
-            {
-                if (File.Exists(arg) && Path.GetExtension(arg).ToUpperInvariant() != ".exe".ToUpperInvariant())
-                {
-                    OpenDatabase(arg);
-                }
-            }
+            OpenDatabase(databaseFile);
         }
 
         Culture culture;

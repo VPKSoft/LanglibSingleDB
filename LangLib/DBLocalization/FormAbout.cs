@@ -34,9 +34,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace DBLocalization
+namespace VPKSoft.DBLocalization
 {
-    partial class FormAbout: Form
+    internal partial class FormAbout: Form
     {
         public FormAbout()
         {

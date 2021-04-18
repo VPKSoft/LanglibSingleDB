@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangLibTestWPF", "LangLibTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangLibTestWinforms", "LangLibTestWinforms\LangLibTestWinforms.csproj", "{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBLocalization", "DBLocalization\DBLocalization.csproj", "{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4717424-4EB8-4E3B-878E-CF68A91FE2DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E933FED-06BD-4AC8-8132-B9EE1FE656FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

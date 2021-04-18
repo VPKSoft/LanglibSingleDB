@@ -25,18 +25,11 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DBLocalization
+namespace VPKSoft.DBLocalization
 {
-    public partial class FormEditCell : Form
+    internal partial class FormEditCell : Form
     {
         public FormEditCell()
         {
