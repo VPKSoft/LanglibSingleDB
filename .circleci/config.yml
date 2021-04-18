@@ -17,8 +17,6 @@
        - checkout
        - run: msbuild LangLib/LangLib.csproj /t:restore
        - run: msbuild LangLib/LangLib.csproj /p:Configuration=Release
-       - run: msbuild DBLocalization/DBLocalization.csproj /t:restore
-       - run: msbuild DBLocalization/DBLocalization.csproj /p:Configuration=Release
 # No need for bleeding edge       - run: dotnet tool install --global PowerShell
        - run: 
           name: Push to NuGet
