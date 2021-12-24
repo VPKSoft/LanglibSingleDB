@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>VPKSoft</RootNamespace>
     <AssemblyName>VPKSoft.LangLib</AssemblyName>
-    <TargetFrameworks>net47;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net47;netcoreapp3.1;net5.0-windows;net6-windows</TargetFrameworks>
     <RepositoryUrl>https://github.com/VPKSoft/LanglibSingleDB</RepositoryUrl>
     <AssemblyTitle>LangLib</AssemblyTitle>
     <Company>VPKSoft</Company>

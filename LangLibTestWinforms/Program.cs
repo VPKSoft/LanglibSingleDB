@@ -25,9 +25,6 @@ along with LangLib.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using VPKSoft.LangLib;
 
@@ -41,6 +38,7 @@ namespace LangLibTestWinforms
         [STAThread]
         static void Main()
         {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (Utils.ShouldLocalize() != null) // Localize and exit.

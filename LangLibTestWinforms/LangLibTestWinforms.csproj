@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>LangLibTestWinforms</AssemblyTitle>
     <Company>VPKSoft</Company>
     <Product>LangLibTestWinforms</Product>
@@ -26,11 +26,12 @@
     <RepositoryUrl>https://github.com/VPKSoft/LanglibSingleDB</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>8</LangVersion>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Deployment" />
