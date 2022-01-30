@@ -8,10 +8,8 @@
     <Company>VPKSoft</Company>
     <Product>VPKSoft.LangLib</Product>
     <Description>A Library for storing application localization data into a SQLite database</Description>
-    <Copyright>Copyright © VPKSoft 2021</Copyright>
-    <Version>1.0.8</Version>
-    <AssemblyVersion>1.0.8.0</AssemblyVersion>
-    <FileVersion>1.0.8.0</FileVersion>
+    <Copyright>Copyright © VPKSoft 2022</Copyright>
+    <Version>1.0.9</Version>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DocumentationFile>bin\$(Configuration)\VPKSoft.LangLib.xml</DocumentationFile>
     <Authors>VPKSoft</Authors>

@@ -83,7 +83,7 @@ namespace VPKSoft.LangLib
             this.appType = appType;
             ThisForm = form;
             // int the data directory with default
-            _dataDir = GetAppSettingsFolder(appType);
+            _dataDir = string.IsNullOrWhiteSpace(DataDir) ? GetAppSettingsFolder(appType) : _dataDir;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace VPKSoft.LangLib
             this.useUids = useUids;
             ThisWindow = window;
             // int the data directory with default
-            _dataDir = GetAppSettingsFolder(appType);
+            _dataDir = string.IsNullOrWhiteSpace(DataDir) ? GetAppSettingsFolder(appType) : _dataDir;
         }        
 
         /// <summary>
